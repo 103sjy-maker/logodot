@@ -1,114 +1,111 @@
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
 
-// ── GET: quick env-check without submitting the form ──────────────────────
-// Visit https://logodot.kr/api/contact in browser to verify config
+// ── GET: env check ─────────────────────────────────────────────────────────
 export async function GET() {
   return NextResponse.json({
     RESEND_API_KEY:    process.env.RESEND_API_KEY
       ? `set (${process.env.RESEND_API_KEY.slice(0, 8)}...)`
-      : 'NOT SET ❌',
+      : 'NOT SET',
     RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL ?? '(fallback) onboarding@resend.dev',
     RESEND_TO_EMAIL:   process.env.RESEND_TO_EMAIL   ?? '(fallback) design@logodot.kr',
   });
 }
 
-// ── POST: send enquiry email ───────────────────────────────────────────────
+// ── POST: send email via Resend REST API (no SDK) ──────────────────────────
 export async function POST(req: Request) {
-  // 1. Log env state on every invocation
+  console.log('[contact] POST start');
+
   const apiKey = process.env.RESEND_API_KEY;
   const from   = process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev';
   const to     = process.env.RESEND_TO_EMAIL   ?? 'design@logodot.kr';
+  console.log('[contact] env — apiKey set:', !!apiKey, '| from:', from, '| to:', to);
 
-  console.log('[contact] ENV —', {
-    apiKey:  apiKey ? `set (${apiKey.slice(0, 8)}...)` : 'NOT SET',
-    from,
-    to,
-  });
-
-  // 2. Guard: no API key → fail fast with clear message
   if (!apiKey) {
-    console.error('[contact] RESEND_API_KEY is not set');
-    return NextResponse.json(
-      { ok: false, debug: 'RESEND_API_KEY is not configured on this server' },
-      { status: 500 },
-    );
+    return NextResponse.json({ ok: false, debug: 'RESEND_API_KEY not set' }, { status: 500 });
   }
 
-  // 3. Parse body
+  // Parse body
   let body: Record<string, unknown>;
   try {
     body = await req.json();
-  } catch (parseErr) {
-    console.error('[contact] body parse error:', parseErr);
-    return NextResponse.json({ ok: false, debug: 'Invalid request body' }, { status: 400 });
+    console.log('[contact] body parsed ok');
+  } catch {
+    return NextResponse.json({ ok: false, debug: 'Invalid JSON body' }, { status: 400 });
   }
 
-  const { projectTypes, budget, timeline, content, name, company, email, phone } = body as Record<string, unknown>;
+  const { projectTypes, budget, timeline, content, name, company, email, phone } =
+    body as Record<string, unknown>;
 
-  // 4. Build ASCII-safe email headers
-  const subjectName = String(company || name || 'a client').replace(/[^\x00-\x7F]/g, '').trim();
-  const subject     = `[Logodot] New inquiry from ${subjectName || 'a client'}`;
-  const replyTo     = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    ? email
-    : undefined;
+  // Build ASCII-safe subject (strip all non-ASCII)
+  const rawName = String(company || name || '');
+  const asciiName = rawName.replace(/[^\x20-\x7E]/g, '').trim();
+  const subject = `[Logodot] New inquiry${asciiName ? ` from ${asciiName}` : ''}`;
+  console.log('[contact] subject:', subject);
 
-  console.log('[contact] sending — subject:', subject, '| to:', to, '| from:', from, '| replyTo:', replyTo);
+  // Validate replyTo (must be a plain ASCII email)
+  const replyTo =
+    typeof email === 'string' && /^[\x20-\x7E]+$/.test(email) ? email : undefined;
+  console.log('[contact] replyTo:', replyTo);
 
-  // 5. Build payload and scan for non-ASCII in header fields
-  const emailPayload = {
+  // Scan all header-level fields for non-ASCII before sending
+  const headerFields: Record<string, string> = {
     from:    `Logodot <${from}>`,
-    to:      [to],
+    to:      to,
+    subject: subject,
     ...(replyTo ? { replyTo } : {}),
-    subject,
-    html: buildHtml({ projectTypes, budget, timeline, content, name, company, email, phone }),
   };
-
-  // Log full payload (html truncated for readability)
-  console.log('[contact] payload:', JSON.stringify({ ...emailPayload, html: emailPayload.html.slice(0, 80) + '...' }, null, 2));
-
-  // Scan every string field for non-ASCII characters and log exact position + char code
-  const scanFields = ['from', 'subject', 'replyTo', ...emailPayload.to] as const;
-  for (const key of ['from', 'subject', 'replyTo'] as const) {
-    const val = (emailPayload as Record<string, unknown>)[key];
-    if (typeof val === 'string') {
-      for (let i = 0; i < val.length; i++) {
-        if (val.charCodeAt(i) > 127) {
-          console.error(`[contact] NON-ASCII in "${key}" idx=${i} char="${val[i]}" code=${val.charCodeAt(i)}`);
-        }
+  let foundNonAscii = false;
+  for (const [field, value] of Object.entries(headerFields)) {
+    for (let i = 0; i < value.length; i++) {
+      if (value.charCodeAt(i) > 127) {
+        console.error(`[contact] NON-ASCII "${field}" idx=${i} char="${value[i]}" code=${value.charCodeAt(i)}`);
+        foundNonAscii = true;
       }
     }
   }
-  for (let i = 0; i < emailPayload.to.length; i++) {
-    const val = emailPayload.to[i];
-    for (let j = 0; j < val.length; j++) {
-      if (val.charCodeAt(j) > 127) {
-        console.error(`[contact] NON-ASCII in "to[${i}]" idx=${j} char="${val[j]}" code=${val.charCodeAt(j)}`);
-      }
-    }
-  }
+  if (!foundNonAscii) console.log('[contact] all header fields are ASCII-clean');
 
-  let sendResult;
+  // Build HTML body (Korean is fine inside JSON body)
+  const html = buildHtml({ projectTypes, budget, timeline, content, name, company, email, phone });
+
+  // Call Resend REST API directly — no SDK, full control over HTTP headers
+  const payload = {
+    from:     `Logodot <${from}>`,
+    to:       [to],
+    subject,
+    html,
+    ...(replyTo ? { reply_to: replyTo } : {}),
+  };
+  console.log('[contact] calling Resend REST API...');
+
+  let resendRes: Response;
   try {
-    const resend = new Resend(apiKey);
-    sendResult = await resend.emails.send(emailPayload);
-  } catch (sendErr) {
-    const msg = sendErr instanceof Error ? sendErr.message : String(sendErr);
-    console.error('[contact] resend.send() threw:', msg, sendErr);
+    resendRes = await fetch('https://api.resend.com/emails', {
+      method:  'POST',
+      headers: {
+        // All header values are ASCII-only
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type':  'application/json',
+      },
+      body: JSON.stringify(payload),  // Korean goes into the UTF-8 JSON body — safe
+    });
+  } catch (fetchErr) {
+    const msg = fetchErr instanceof Error ? fetchErr.message : String(fetchErr);
+    console.error('[contact] fetch threw:', msg);
     return NextResponse.json({ ok: false, debug: msg }, { status: 500 });
   }
 
-  // 6. Log full Resend response
-  console.log('[contact] resend result:', JSON.stringify(sendResult));
+  const resendBody = await resendRes.json().catch(() => ({}));
+  console.log('[contact] Resend status:', resendRes.status, '| body:', JSON.stringify(resendBody));
 
-  if (sendResult.error) {
-    console.error('[contact] resend API error:', JSON.stringify(sendResult.error));
-    return NextResponse.json({ ok: false, debug: sendResult.error }, { status: 500 });
+  if (!resendRes.ok) {
+    console.error('[contact] Resend error:', JSON.stringify(resendBody));
+    return NextResponse.json({ ok: false, debug: resendBody }, { status: 500 });
   }
 
-  console.log('[contact] success — email id:', sendResult.data?.id);
+  console.log('[contact] success — id:', (resendBody as Record<string, unknown>).id);
   return NextResponse.json({ ok: true });
 }
 
@@ -128,28 +125,18 @@ function buildHtml(d: Record<string, unknown>) {
     ['연락처',        str(d.phone)],
   ];
 
-  const rowsHtml = rows.map(([label, value], i) => `
-    <tr style="border-bottom:1px solid #E5E5E5;${i >= 4 ? 'background:#F8F9FA;' : ''}">
-      <td style="padding:16px 32px;width:160px;color:#888;font-weight:600;vertical-align:top;">${label}</td>
-      <td style="padding:16px 32px;white-space:pre-wrap;">${value}</td>
-    </tr>`).join('');
-
-  return `
-    <table style="font-family:sans-serif;font-size:15px;color:#1E1E1E;max-width:600px;width:100%;border-collapse:collapse;">
-      <thead>
-        <tr>
-          <td colspan="2" style="background:#93D85A;padding:24px 32px;font-size:20px;font-weight:700;border-radius:8px 8px 0 0;">
-            New inquiry — Logodot
-          </td>
-        </tr>
-      </thead>
-      <tbody>${rowsHtml}</tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2" style="padding:20px 32px;color:#888;font-size:12px;border-top:1px solid #E5E5E5;">
-            Sent from logodot.kr contact form
-          </td>
-        </tr>
-      </tfoot>
-    </table>`;
+  return `<table style="font-family:sans-serif;font-size:15px;color:#1E1E1E;max-width:600px;width:100%;border-collapse:collapse;">
+    <thead><tr><td colspan="2" style="background:#93D85A;padding:24px 32px;font-size:20px;font-weight:700;border-radius:8px 8px 0 0;">
+      New inquiry — Logodot
+    </td></tr></thead>
+    <tbody>${rows.map(([label, value], i) =>
+      `<tr style="border-bottom:1px solid #E5E5E5;${i >= 4 ? 'background:#F8F9FA;' : ''}">
+        <td style="padding:16px 32px;width:160px;color:#888;font-weight:600;vertical-align:top;">${label}</td>
+        <td style="padding:16px 32px;white-space:pre-wrap;">${value}</td>
+      </tr>`).join('')}
+    </tbody>
+    <tfoot><tr><td colspan="2" style="padding:20px 32px;color:#888;font-size:12px;border-top:1px solid #E5E5E5;">
+      Sent from logodot.kr contact form
+    </td></tr></tfoot>
+  </table>`;
 }
