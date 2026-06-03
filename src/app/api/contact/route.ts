@@ -76,20 +76,26 @@ export async function POST(req: Request) {
       </tfoot>
     </table>`;
 
+  // Edge Runtime: JSON.stringify keeps Korean as raw Unicode (not \uXXXX),
+  // and passing that string directly to fetch() body causes a ByteString error.
+  // Fix: encode to UTF-8 bytes first with TextEncoder.
+  const bodyJSON = JSON.stringify({
+    from,
+    to:      [to],
+    subject,
+    html,
+    ...(replyTo ? { reply_to: replyTo } : {}),
+  });
+  const bodyBytes = new TextEncoder().encode(bodyJSON);
+
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,  // ASCII only
-        'Content-Type':  'application/json',  // ASCII only
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type':  'application/json',
       },
-      body: JSON.stringify({
-        from,                                  // ASCII: noreply@logodot.kr
-        to:      [to],                         // ASCII: design@logodot.kr
-        subject,                               // ASCII only (Korean stripped above)
-        html,                                  // Korean safe inside JSON body
-        ...(replyTo ? { reply_to: replyTo } : {}),
-      }),
+      body: bodyBytes,  // Uint8Array — safe in all runtimes
     });
 
     const data = await res.json().catch(() => ({})) as Record<string, unknown>;
