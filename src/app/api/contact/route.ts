@@ -5,15 +5,22 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 export async function POST(req: Request) {
-  // Initialise inside handler so top-level module evaluation never touches the network
   const resend = new Resend(process.env.RESEND_API_KEY);
+
+  // ── ENV CHECK (visible in Vercel Function logs) ──────────────────────────
+  const apiKeySet = !!process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev';
+  const to   = process.env.RESEND_TO_EMAIL   ?? 'design@logodot.kr';
+  console.log('[contact] env check —', {
+    RESEND_API_KEY:    apiKeySet ? `set (starts: ${process.env.RESEND_API_KEY?.slice(0, 8)}...)` : 'NOT SET',
+    RESEND_FROM_EMAIL: from,
+    RESEND_TO_EMAIL:   to,
+  });
+  // ─────────────────────────────────────────────────────────────────────────
 
   try {
     const { projectTypes, budget, timeline, content, name, company, email, phone } =
       await req.json();
-
-    const from = process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev';
-    const to   = process.env.RESEND_TO_EMAIL   ?? 'design@logodot.kr';
 
     // All header fields (from, subject, replyTo) must be ASCII-only
     const subjectCompany = (company || name || 'Unknown').replace(/[^\x00-\x7F]/g, '');
