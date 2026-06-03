@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { PlaceholderImage } from '@/components/ui/PlaceholderImage';
@@ -34,7 +35,17 @@ export default function PortfolioPage() {
             {portfolioItems.map((item) => (
               <Link key={item.slug} href={`/portfolio/${item.slug}`} className="group flex flex-col gap-[14px] md:gap-[24px]">
                 <div className="relative overflow-hidden rounded-[14px] md:rounded-[20px] aspect-[456/304]">
-                  <PlaceholderImage aspectRatio="aspect-[456/304]" />
+                  {item.thumbnail ? (
+                    <Image
+                      src={item.thumbnail}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) calc(100vw - 48px), calc((100vw - 480px) / 3)"
+                    />
+                  ) : (
+                    <PlaceholderImage aspectRatio="aspect-[456/304]" />
+                  )}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all flex items-center justify-center">
                     <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow">
                       <span className="text-foreground text-[20px] leading-none">+</span>
