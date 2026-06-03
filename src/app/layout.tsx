@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Google_Sans_Flex } from 'next/font/google';
 import './globals.css';
+import { CustomCursor } from '@/components/ui/CustomCursor';
 
 // Google Sans Flex — the exact font specified in Figma (variable font, wght 1–1000)
 const googleSansFlex = Google_Sans_Flex({
@@ -51,7 +52,10 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <CustomCursor />
+      </body>
     </html>
   );
 }
