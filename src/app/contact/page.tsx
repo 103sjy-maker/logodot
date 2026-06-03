@@ -48,7 +48,7 @@ export default function ContactPage() {
   const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
-  const [sendError, setSendError] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const toggleType = (type: string) =>
     setSelectedTypes((prev) =>
@@ -58,17 +58,22 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
-    setSendError(false);
+    setSendError(null);
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectTypes: selectedTypes, budget, timeline, content, name, company, email, phone }),
       });
-      if (!res.ok) throw new Error('send failed');
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const detail = data?.debug ? JSON.stringify(data.debug) : `HTTP ${res.status}`;
+        throw new Error(detail);
+      }
       setSubmitted(true);
-    } catch {
-      setSendError(true);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : '알 수 없는 오류';
+      setSendError(msg);
     } finally {
       setSending(false);
     }
@@ -302,9 +307,14 @@ export default function ContactPage() {
               {/* Submit — Figma Frame 3: 220×60 bg=#1E1E1E r=8 pad=18,40 gap=20
                   Text: Pretendard 500 20px lh=24px ls=-0.4px color=#FFFFFF */}
               {sendError && (
-                <p className="text-[15px] text-red-500 leading-[22px]">
-                  전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.
-                </p>
+                <div className="flex flex-col gap-[4px]">
+                  <p className="text-[15px] text-red-500 leading-[22px]">
+                    전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.
+                  </p>
+                  <p className="text-[12px] text-red-400 font-mono break-all">
+                    {sendError}
+                  </p>
+                </div>
               )}
 
               <button

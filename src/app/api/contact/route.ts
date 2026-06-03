@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const subjectCompany = (company || name || 'Unknown').replace(/[^\x00-\x7F]/g, '');
     const subject = `[Logodot] New inquiry from ${subjectCompany || 'a client'}`;
 
-    const { error } = await resend.emails.send({
+    const sendResult = await resend.emails.send({
       from:    `Logodot <${from}>`,   // ASCII only
       to:      [to],
       replyTo: email,                  // email address is always ASCII
@@ -78,14 +78,24 @@ export async function POST(req: Request) {
       `,
     });
 
-    if (error) {
-      console.error('[contact] resend error:', error);
-      return NextResponse.json({ ok: false }, { status: 500 });
+    console.log('[contact] resend full result:', JSON.stringify(sendResult));
+
+    if (sendResult.error) {
+      console.error('[contact] resend error:', JSON.stringify(sendResult.error));
+      return NextResponse.json(
+        { ok: false, debug: sendResult.error },
+        { status: 500 },
+      );
     }
 
+    console.log('[contact] resend success, id:', sendResult.data?.id);
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error('[contact] unexpected error:', err);
-    return NextResponse.json({ ok: false }, { status: 500 });
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('[contact] unexpected error:', message, err);
+    return NextResponse.json(
+      { ok: false, debug: message },
+      { status: 500 },
+    );
   }
 }
