@@ -88,14 +88,29 @@ export async function POST(req: Request) {
   });
   const bodyBytes = new TextEncoder().encode(bodyJSON);
 
+  // Strip any invisible/non-ASCII characters that may have been introduced
+  // when the env var was pasted into Vercel (zero-width spaces, BOM, etc.)
+  const safeApiKey = apiKey.replace(/[^\x20-\x7E]/g, '');
+
+  const fetchHeaders = {
+    'Authorization': `Bearer ${safeApiKey}`,
+    'Content-Type':  'application/json',
+  };
+
+  // Log exact header values + char codes for non-ASCII detection
+  for (const [k, v] of Object.entries(fetchHeaders)) {
+    const bad = [];
+    for (let i = 0; i < v.length; i++) {
+      if (v.charCodeAt(i) > 127) bad.push(`idx=${i} code=${v.charCodeAt(i)}`);
+    }
+    console.log(`[contact] header "${k}" len=${v.length} nonAscii=${bad.length > 0 ? bad.join(',') : 'none'}`);
+  }
+
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type':  'application/json',
-      },
-      body: bodyBytes,  // Uint8Array — safe in all runtimes
+      headers: fetchHeaders,
+      body: bodyBytes,
     });
 
     const data = await res.json().catch(() => ({})) as Record<string, unknown>;
