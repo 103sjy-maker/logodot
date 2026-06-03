@@ -94,10 +94,10 @@ export default function ContactPage() {
             <div className="w-16 h-16 rounded-full bg-brand-light flex items-center justify-center mx-auto mb-6">
               <span className="text-brand text-2xl">✓</span>
             </div>
-            <h2 className="text-[32px] font-bold text-foreground mb-3 tracking-[-0.64px]">
+            <h2 className="text-[22px] md:text-[32px] font-bold text-foreground mb-3 tracking-[-0.44px] md:tracking-[-0.64px]">
               상담 요청이 접수되었습니다.
             </h2>
-            <p className="text-[18px] text-muted leading-[28px]">담당 디자이너가 영업일 1–2일 이내 연락드립니다.</p>
+            <p className="text-[15px] md:text-[18px] text-muted leading-[24px] md:leading-[28px]">담당 디자이너가 영업일 1–2일 이내 연락드립니다.</p>
           </div>
         </main>
         <Footer />
@@ -109,14 +109,14 @@ export default function ContactPage() {
     <>
       <Header />
       <main className="flex-1 pt-[100px]">
-        <div className="max-w-[1440px] mx-auto px-[240px] py-[80px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[80px]">
+        <div className="section-wrap py-[40px] md:py-[80px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[40px] md:gap-[80px]">
 
             {/* ── Left column ── */}
             <div className="md:pt-4">
               {/* Figma: Pretendard 700 60px lh=72px ls=-1.2px color=#1E1E1E */}
               {/* Figma: color=#1E1E1E — no green period */}
-              <h1 className="text-[60px] leading-[72px] tracking-[-1.2px] font-bold text-foreground">
+              <h1 className="text-[32px] leading-[40px] tracking-[-0.64px] md:text-[60px] md:leading-[72px] md:tracking-[-1.2px] font-bold text-foreground">
                 브랜드는
                 <br />
                 대화에서
@@ -124,7 +124,7 @@ export default function ContactPage() {
                 시작됩니다.
               </h1>
               {/* Figma: Pretendard 400 20px lh=28px ls=-0.4px color=#1E1E1E */}
-              <div className="mt-[40px] flex flex-col gap-[24px] text-[20px] leading-[28px] tracking-[-0.4px] font-normal text-foreground">
+              <div className="mt-[24px] md:mt-[40px] flex flex-col gap-[16px] md:gap-[24px] text-[15px] leading-[24px] tracking-[-0.3px] md:text-[20px] md:leading-[28px] md:tracking-[-0.4px] font-normal text-foreground">
                 <p>
                   간단히 알려주시면,
                   <br />
@@ -139,11 +139,11 @@ export default function ContactPage() {
             </div>
 
             {/* ── Right column: form ── */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-[40px]">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-[28px] md:gap-[40px]">
 
               {/* Right heading */}
               {/* Figma: Pretendard 700 32px lh=48px ls=-0.64px */}
-              <h2 className="text-[32px] leading-[48px] tracking-[-0.64px] font-bold text-foreground">
+              <h2 className="text-[20px] leading-[30px] tracking-[-0.4px] md:text-[32px] md:leading-[48px] md:tracking-[-0.64px] font-bold text-foreground">
                 어떤 브랜드를 만들고 싶으신가요?<br />
                 최소한의 정보로도 괜찮아요.<br />
                 편하게 적어주세요.
@@ -152,7 +152,7 @@ export default function ContactPage() {
               {/* 프로젝트 분야 */}
               <div className="flex flex-col gap-[16px]">
                 {/* Figma: Pretendard 700 20px lh=24px ls=-0.4px */}
-                <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+                <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground">
                   프로젝트 분야 <span className="text-brand">*</span>
                 </label>
                 {/* Figma: Frame 82 — HORIZONTAL gap=60, items HORIZONTAL gap=8 */}
@@ -187,7 +187,7 @@ export default function ContactPage() {
               {/* 예산 + 기간 — Figma: 456px wide each */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
                 <div className="flex flex-col gap-[12px]">
-                  <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+                  <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground">
                     프로젝트 예산 <span className="text-brand">*</span>
                   </label>
                   <div className="relative">
@@ -206,7 +206,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-[12px]">
-                  <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+                  <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground">
                     프로젝트 기간
                   </label>
                   <div className="relative">
@@ -232,7 +232,7 @@ export default function ContactPage() {
 
               {/* 프로젝트 내용 — Figma: Rectangle 67 936×189 r=8 */}
               <div className="flex flex-col gap-[12px]">
-                <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+                <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground">
                   프로젝트 내용 <span className="text-brand">*</span>
                 </label>
                 <textarea
@@ -248,7 +248,7 @@ export default function ContactPage() {
               {/* 담당자 이름 + 회사/브랜드명 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
                 <div className="flex flex-col gap-[12px]">
-                  <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+                  <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground">
                     담당자 이름 <span className="text-brand">*</span>
                   </label>
                   <input
@@ -258,7 +258,7 @@ export default function ContactPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-[12px]">
-                  <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+                  <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground">
                     회사/브랜드명 <span className="text-brand">*</span>
                   </label>
                   <input
@@ -272,7 +272,7 @@ export default function ContactPage() {
               {/* 이메일 + 연락처 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
                 <div className="flex flex-col gap-[12px]">
-                  <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+                  <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground">
                     이메일 <span className="text-brand">*</span>
                   </label>
                   <input
@@ -283,7 +283,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex flex-col gap-[12px]">
                   {/* Figma: "연락처" weight=600 (not 700) */}
-                  <label className="text-[20px] leading-[24px] tracking-[-0.4px] font-semibold text-foreground">
+                  <label className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-semibold text-foreground">
                     연락처
                   </label>
                   <input
@@ -329,9 +329,9 @@ export default function ContactPage() {
                 className="group inline-flex items-center justify-center gap-[20px] bg-foreground text-white
                            hover:bg-brand hover:text-foreground
                            disabled:opacity-60 disabled:cursor-not-allowed
-                           text-[20px] leading-[24px] font-medium tracking-[-0.4px]
-                           px-[40px] py-[18px] rounded-[8px]
-                           transition-[background-color,color] duration-200 w-fit"
+                           text-[16px] md:text-[20px] leading-[24px] font-medium tracking-[-0.32px] md:tracking-[-0.4px]
+                           px-[32px] md:px-[40px] py-[16px] md:py-[18px] rounded-[8px]
+                           transition-[background-color,color] duration-200 w-full md:w-fit"
               >
                 {sending ? '전송 중…' : '상담 요청하기'}
                 {!sending && (
