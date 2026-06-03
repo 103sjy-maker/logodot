@@ -51,6 +51,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   word-break: keep-all;
   overflow-wrap: break-word;
+  overflow-x: hidden;
 }
 
 /* ─── Google Sans Flex display font (weight/spacing set via Tailwind utilities) ─── */

@@ -5,21 +5,19 @@ export function Footer() {
   return (
     <footer className="bg-white border-t border-border overflow-hidden">
       {/* Figma: Foot component — 3-column info area + large wordmark, same container */}
-      <div className="max-w-[1440px] mx-auto px-[240px]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-[60px] pb-[48px]">
+      <div className="section-wrap">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 pt-[40px] pb-[36px] md:pt-[60px] md:pb-[48px]">
 
           {/* Left: tagline + instagram */}
-          <div className="flex flex-col gap-5">
-            {/* Figma: Google Sans Flex 400 20px lh=30px */}
+          <div className="flex flex-col gap-4 md:gap-5">
             <div>
-              <p className="text-[20px] leading-[30px] tracking-[0] text-foreground">
+              <p className="text-[16px] leading-[26px] md:text-[20px] md:leading-[30px] tracking-[0] text-foreground">
                 One dot, infinite identity.
               </p>
-              <p className="text-[20px] leading-[30px] tracking-[0] text-foreground">
+              <p className="text-[16px] leading-[26px] md:text-[20px] md:leading-[30px] tracking-[0] text-foreground">
                 Your brand starts with one dot.
               </p>
             </div>
-            {/* Figma: Ellipse 40×40 bg=#1E1E1E with instagram icon */}
             <Link
               href="https://www.instagram.com/logodot.kr"
               target="_blank"
@@ -33,52 +31,49 @@ export function Footer() {
             </Link>
           </div>
 
-          {/* Middle: Office — Figma: gap=15, Google Sans Flex 700 18px label */}
-          <div className="flex flex-col gap-[15px]">
-            <p className="font-logo text-[18px] leading-[22.5px] tracking-[0] text-foreground font-bold">
+          {/* Middle: Office */}
+          <div className="flex flex-col gap-[12px] md:gap-[15px]">
+            <p className="font-logo text-[15px] md:text-[18px] leading-[22.5px] tracking-[0] text-foreground font-bold">
               Office
             </p>
-            <p className="text-[18px] leading-[21.6px] tracking-[0] text-muted-mid">
+            <p className="text-[14px] md:text-[18px] leading-[21px] md:leading-[21.6px] tracking-[0] text-muted-mid">
               대전광역시 유성구 유성대로 783번길 33, 4F
             </p>
           </div>
 
-          {/* Right: Contact — Figma: gap=16, Google Sans Flex 700 18px label */}
-          <div className="flex flex-col gap-[16px]">
-            <p className="font-logo text-[18px] leading-[22.5px] tracking-[0] text-foreground font-bold">
+          {/* Right: Contact */}
+          <div className="flex flex-col gap-[12px] md:gap-[16px]">
+            <p className="font-logo text-[15px] md:text-[18px] leading-[22.5px] tracking-[0] text-foreground font-bold">
               Contact
             </p>
             <div className="flex flex-col gap-[4px]">
-              {/* Figma: Pretendard 400 18px lh=30px color=#6F716E */}
               <a
                 href="mailto:design@logodot.kr"
-                className="text-[18px] leading-[30px] tracking-[0] text-muted-mid hover:text-brand transition-colors"
+                className="text-[14px] md:text-[18px] leading-[24px] md:leading-[30px] tracking-[0] text-muted-mid hover:text-brand transition-colors"
               >
                 design@logodot.kr
               </a>
               <a
                 href="tel:042-823-3123"
-                className="text-[18px] leading-[30px] tracking-[0] text-muted-mid hover:text-brand transition-colors"
+                className="text-[14px] md:text-[18px] leading-[24px] md:leading-[30px] tracking-[0] text-muted-mid hover:text-brand transition-colors"
               >
                 042-823-3123
               </a>
             </div>
           </div>
         </div>
+      </div>
 
-        {/*
-         * Large wordmark — same horizontal grid as content above.
-         * Container AR = viewBox_w / (viewBox_h × 0.55) = 764 / 103.4 ≈ 7.39
-         * → container height = width / 7.39 = 55% of SVG height.
-         * Bottom 45% of letterforms is clipped by overflow-hidden on footer.
-         */}
-        <div
-          className="overflow-hidden select-none"
-          style={{ aspectRatio: '7.39' }}
-          aria-hidden="true"
-        >
-          <LogodotLogo className="w-full h-auto block" />
-        </div>
+      {/*
+       * Large wordmark — full bleed, same overflow-hidden clip as before.
+       * Container AR = viewBox_w / (viewBox_h × 0.55) = 764 / 103.4 ≈ 7.39
+       */}
+      <div
+        className="section-wrap overflow-hidden select-none pb-0"
+        style={{ aspectRatio: '7.39' }}
+        aria-hidden="true"
+      >
+        <LogodotLogo className="w-full h-auto block" />
       </div>
     </footer>
   );

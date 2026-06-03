@@ -1,6 +1,6 @@
 'use client';
 
-/* Figma: 신뢰지표 section — bg=#F8F9FA, 1920×1010 */
+/* Figma: 신뢰지표 section — bg=#F8F9FA */
 
 import { useRef, useState, useEffect } from 'react';
 import { SectionLabel } from '@/components/ui/SectionLabel';
@@ -27,7 +27,6 @@ const stats = [
   },
 ];
 
-// ease-out cubic — starts fast, decelerates to final value
 function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3);
 }
@@ -39,15 +38,11 @@ function useCountUp(target: number, duration: number, active: boolean) {
   useEffect(() => {
     if (!active) return;
     const startTime = performance.now();
-
     const tick = (now: number) => {
       const progress = Math.min((now - startTime) / duration, 1);
       setCount(Math.round(easeOutCubic(progress) * target));
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      }
+      if (progress < 1) rafRef.current = requestAnimationFrame(tick);
     };
-
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, [active, target, duration]);
@@ -57,9 +52,9 @@ function useCountUp(target: number, duration: number, active: boolean) {
 
 function StarRating({ count }: { count: number }) {
   return (
-    <div className="flex gap-[5px]">
+    <div className="flex gap-[4px] md:gap-[5px]">
       {Array.from({ length: count }).map((_, i) => (
-        <span key={i} className="text-brand text-[16px] leading-[20px]">★</span>
+        <span key={i} className="text-brand text-[14px] md:text-[16px] leading-[20px]">★</span>
       ))}
     </div>
   );
@@ -69,16 +64,12 @@ export function StatsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [animated, setAnimated] = useState(false);
 
-  // Trigger once when the stats numbers enter the viewport
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimated(true);
-          observer.disconnect();
-        }
+        if (entry.isIntersecting) { setAnimated(true); observer.disconnect(); }
       },
       { threshold: 0.25 },
     );
@@ -86,67 +77,55 @@ export function StatsSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Three independent count-up hooks — staggered durations for natural feel
   const count0 = useCountUp(stats[0].value, 1500, animated);
   const count1 = useCountUp(stats[1].value, 1300, animated);
   const count2 = useCountUp(stats[2].value, 1400, animated);
   const counts = [count0, count1, count2];
 
   return (
-    <section ref={sectionRef} className="bg-card py-[100px] overflow-hidden">
+    <section ref={sectionRef} className="bg-card py-[60px] md:py-[100px] overflow-hidden">
 
-      {/* Padded container — title + stats numbers */}
-      <div className="max-w-[1440px] mx-auto px-[240px]">
+      {/* Title + stats numbers */}
+      <div className="section-wrap">
 
-        <div className="flex flex-col gap-[16px] items-center text-center mb-[60px]">
-          <SectionLabel className="text-[24px] leading-[28.8px] tracking-[-0.48px] font-semibold text-brand">
+        <div className="flex flex-col gap-[12px] md:gap-[16px] items-center text-center mb-[40px] md:mb-[60px]">
+          <SectionLabel className="text-[15px] leading-[20px] tracking-[-0.3px] md:text-[24px] md:leading-[28.8px] md:tracking-[-0.48px] font-semibold text-brand">
             로고닷의 신뢰지표
           </SectionLabel>
-          <h2 className="text-[48px] leading-[57.6px] tracking-[-0.96px] font-bold text-foreground">
+          <h2 className="text-[26px] leading-[33px] tracking-[-0.52px] md:text-[48px] md:leading-[57.6px] md:tracking-[-0.96px] font-bold text-foreground">
             브랜드 신뢰를 쌓아온 로고닷의 기록
           </h2>
         </div>
 
-        <div className="flex items-start justify-center gap-[80px] mb-[80px]">
+        {/* 3 stats — horizontal on mobile too, but smaller */}
+        <div className="grid grid-cols-3 gap-[8px] md:flex md:items-start md:justify-center md:gap-[80px] mb-[40px] md:mb-[80px]">
           {stats.map((stat, i) => (
-            <div key={stat.label} className="flex flex-col items-center gap-[5px]">
-              <p className="text-[20px] leading-[24px] tracking-[-0.4px] font-bold text-foreground">
+            <div key={stat.label} className="flex flex-col items-center gap-[6px] md:gap-[5px]">
+              <p className="text-[12px] leading-[15px] tracking-[-0.24px] md:text-[20px] md:leading-[24px] md:tracking-[-0.4px] font-bold text-foreground text-center">
                 {stat.label}
               </p>
 
-              {/* Number + suffix — invisible placeholder prevents width shift */}
               <div className="flex items-end gap-0 font-logo">
-                {/*
-                 * Outer div holds the width of the final value via an invisible
-                 * ghost span, so layout stays fixed as 0 → 780 counts up.
-                 */}
                 <div className="relative inline-flex justify-center">
-                  {/* Ghost — establishes width of final value */}
-                  <span
-                    aria-hidden="true"
-                    className="invisible text-[80px] leading-[100px] tracking-[-1.6px] font-bold"
-                  >
+                  <span aria-hidden="true" className="invisible text-[32px] leading-[42px] md:text-[80px] md:leading-[100px] tracking-[-0.64px] md:tracking-[-1.6px] font-bold">
                     {stat.value}
                   </span>
-                  {/* Animated number on top */}
-                  <span className="absolute inset-0 flex items-center justify-center text-[80px] leading-[100px] tracking-[-1.6px] font-bold text-foreground tabular-nums">
+                  <span className="absolute inset-0 flex items-center justify-center text-[32px] leading-[42px] md:text-[80px] md:leading-[100px] tracking-[-0.64px] md:tracking-[-1.6px] font-bold text-foreground tabular-nums">
                     {counts[i]}
                   </span>
                 </div>
-
-                {/* Suffix — always visible, never animated */}
                 {stat.suffix === '%' ? (
-                  <span className="text-[34px] leading-[60px] tracking-[-0.68px] font-black text-foreground">
+                  <span className="text-[14px] leading-[32px] md:text-[34px] md:leading-[60px] tracking-[-0.28px] md:tracking-[-0.68px] font-black text-foreground">
                     {stat.suffix}
                   </span>
                 ) : (
-                  <span className="text-[60px] leading-[90px] tracking-[-1.2px] font-medium text-foreground">
+                  <span className="text-[20px] leading-[38px] md:text-[60px] md:leading-[90px] tracking-[-0.4px] md:tracking-[-1.2px] font-medium text-foreground">
                     {stat.suffix}
                   </span>
                 )}
               </div>
 
-              <p className="text-[18px] leading-[24px] tracking-[-0.36px] font-normal text-muted text-center max-w-[200px]">
+              <p className="text-[11px] leading-[16px] tracking-[-0.22px] md:text-[18px] md:leading-[24px] md:tracking-[-0.36px] font-normal text-muted text-center">
                 {stat.description}
               </p>
             </div>
@@ -154,19 +133,19 @@ export function StatsSection() {
         </div>
       </div>
 
-      {/* Testimonial marquee — outside padded container, same pattern as Portfolio */}
+      {/* Testimonial marquee */}
       <div className="overflow-hidden">
-        <div className="flex gap-[24px] animate-marquee w-max px-[240px]">
+        <div className="flex gap-[16px] md:gap-[24px] animate-marquee w-max px-6 md:px-[60px] lg:px-[120px] xl:px-[240px]">
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="w-[400px] flex-shrink-0 bg-white rounded-[12px] px-[30px] py-[40px] flex flex-col gap-[16px]"
+              className="w-[260px] md:w-[400px] flex-shrink-0 bg-white rounded-[12px] px-[20px] py-[24px] md:px-[30px] md:py-[40px] flex flex-col gap-[12px] md:gap-[16px] overflow-hidden"
             >
               <StarRating count={t.rating} />
-              <p className="text-[17px] leading-[22px] tracking-[-0.34px] font-bold text-foreground">
+              <p className="text-[14px] leading-[20px] tracking-[-0.28px] md:text-[17px] md:leading-[22px] md:tracking-[-0.34px] font-bold text-foreground">
                 {t.title}
               </p>
-              <p className="text-[15px] leading-[24px] tracking-[-0.3px] font-normal text-muted">
+              <p className="text-[13px] leading-[20px] tracking-[-0.26px] md:text-[15px] md:leading-[24px] md:tracking-[-0.3px] font-normal text-muted">
                 {t.quote}
               </p>
             </div>
