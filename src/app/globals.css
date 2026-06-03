@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* ─── Design tokens (Figma exact values) ─── */
+:root {
+  --background: #ffffff;
+  --foreground: #1E1E1E;   /* Figma: #1E1E1E */
+  --brand: #93D85A;        /* Figma: #93D85A */
+  --brand-light: #DFF8CA;  /* Figma: #DFF8CA */
+  --site-dark: #141414;    /* Figma philosophy section: #141414 */
+  --dark-mobile: #1E1E1E;  /* Figma mobile dark / card bg */
+  --muted: #444444;        /* Figma body muted: #444444 */
+  --muted-mid: #6F716E;    /* Figma address/contact: #6F716E */
+  --muted-light: #888888;  /* Figma placeholder: #888888 */
+  --inactive: #999999;     /* Figma inactive filter: #999999 */
+  --card: #F8F9FA;         /* Figma card bg: #F8F9FA */
+  --border-col: #E5E5E5;
+}
+
+/* ─── Tailwind theme ─── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-site-dark: var(--site-dark);
+  --color-dark-mobile: var(--dark-mobile);
+  --color-muted: var(--muted);
+  --color-muted-mid: var(--muted-mid);
+  --color-muted-light: var(--muted-light);
+  --color-inactive: var(--inactive);
+  --color-card: var(--card);
+  --color-border: var(--border-col);
+
+  /*
+   * Font stack:
+   * Latin/numerals  → Google Sans Flex (variable, Figma 원본 지정)
+   * Korean/fallback → Pretendard Variable (CDN in layout.tsx)
+   */
+  --font-sans: var(--font-display), 'Pretendard Variable', 'Pretendard',
+    -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ─── Base ─── */
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ─── Google Sans Flex display font (weight/spacing set via Tailwind utilities) ─── */
+.font-logo {
+  font-family: var(--font-display), sans-serif;
+}
+
+/* ─── Typewriter cursor ─── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.animate-cursor { animation: cursor-blink 0.7s ease-in-out infinite; }
+
+/* ─── Marquee ─── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee         { animation: marquee 30s linear infinite; }
+.animate-marquee-reverse { animation: marquee-reverse 35s linear infinite; }
+
+/* ─── Responsive container (24px mobile → 240px desktop) ─── */
+.section-wrap {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 768px)  { .section-wrap { padding-left: 60px;  padding-right: 60px;  } }
+@media (min-width: 1024px) { .section-wrap { padding-left: 120px; padding-right: 120px; } }
+@media (min-width: 1440px) { .section-wrap { padding-left: 240px; padding-right: 240px; } }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
