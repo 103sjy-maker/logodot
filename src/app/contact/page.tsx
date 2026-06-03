@@ -69,10 +69,12 @@ export default function ContactPage() {
       });
       const data = await res.json().catch(() => ({}));
       console.log('[contact page] response status', res.status);
-      console.log('[contact page] response body', data);
+      console.log('[contact page] response body', JSON.stringify(data));
       if (!res.ok) {
-        const detail = data?.debug ? JSON.stringify(data.debug) : `HTTP ${res.status}`;
-        throw new Error(detail);
+        const detail = data?.debug
+          ? `${data.debug}${data.stack ? '\n' + data.stack : ''}`
+          : `HTTP ${res.status}`;
+        throw new Error(String(detail));
       }
       setSubmitted(true);
     } catch (err) {

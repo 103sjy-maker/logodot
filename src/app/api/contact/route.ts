@@ -103,13 +103,22 @@ export async function POST(req: Request) {
 
     if (!res.ok) {
       console.error('[contact] resend error:', JSON.stringify(data));
-      return NextResponse.json({ ok: false, debug: data }, { status: 500 });
+      return NextResponse.json({
+        ok: false,
+        debug: String(JSON.stringify(data)),
+        resendStatus: res.status,
+      }, { status: 500 });
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error('[contact] fetch error:', msg);
-    return NextResponse.json({ ok: false, debug: msg }, { status: 500 });
+    const msg   = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? err.stack   : null;
+    console.error('[contact] fetch error:', msg, stack);
+    return NextResponse.json({
+      ok: false,
+      debug: msg,
+      stack,
+    }, { status: 500 });
   }
 }
