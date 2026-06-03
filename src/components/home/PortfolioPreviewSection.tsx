@@ -1,19 +1,43 @@
 /* Figma: 포트폴리오 section — images marquee */
 
+import Link from 'next/link';
+import Image from 'next/image';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { portfolioItems } from '@/data/portfolio';
 
-const row1 = portfolioItems.slice(0, 6);
-const row2 = portfolioItems.slice(6, 12);
+const half = Math.ceil(portfolioItems.length / 2);
+const row1 = portfolioItems.slice(0, half);
+const row2 = portfolioItems.slice(half);
 
-function PortfolioThumb() {
+interface ThumbProps {
+  slug: string;
+  title: string;
+  thumbnail: string | null;
+}
+
+function PortfolioThumb({ slug, title, thumbnail }: ThumbProps) {
   return (
-    <div className="w-[200px] h-[134px] md:w-[336px] md:h-[224px] flex-shrink-0 rounded-[14px] md:rounded-[20px] bg-[#F0F0F0] flex items-center justify-center">
-      <div className="flex flex-col items-start">
-        <span className="text-[#AAAAAA] font-black text-[32px] md:text-[48px] leading-none">L</span>
-        <span className="text-brand font-black text-[20px] md:text-[32px] leading-none">.</span>
-      </div>
-    </div>
+    <Link
+      href={`/portfolio/${slug}`}
+      className="relative w-[200px] h-[134px] md:w-[336px] md:h-[224px] flex-shrink-0 rounded-[14px] md:rounded-[20px] overflow-hidden bg-[#F0F0F0] block"
+    >
+      {thumbnail ? (
+        <Image
+          src={thumbnail}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 200px, 336px"
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="flex flex-col items-start">
+            <span className="text-[#AAAAAA] font-black text-[32px] md:text-[48px] leading-none">L</span>
+            <span className="text-brand font-black text-[20px] md:text-[32px] leading-none">.</span>
+          </div>
+        </div>
+      )}
+    </Link>
   );
 }
 
@@ -43,8 +67,13 @@ export function PortfolioPreviewSection() {
       {/* Row 1 — scrolling right */}
       <div className="mb-[6px] md:mb-[8px] overflow-hidden">
         <div className="flex gap-[6px] md:gap-[8px] animate-marquee w-max px-6 md:px-[60px] lg:px-[120px] xl:px-[240px]">
-          {[...row1, ...row1].map((_, i) => (
-            <PortfolioThumb key={`r1-${i}`} />
+          {[...row1, ...row1].map((item, i) => (
+            <PortfolioThumb
+              key={`r1-${i}`}
+              slug={item.slug}
+              title={item.title}
+              thumbnail={item.thumbnail}
+            />
           ))}
         </div>
       </div>
@@ -52,8 +81,13 @@ export function PortfolioPreviewSection() {
       {/* Row 2 — scrolling left */}
       <div className="overflow-hidden">
         <div className="flex gap-[6px] md:gap-[8px] animate-marquee-reverse w-max px-6 md:px-[60px] lg:px-[120px] xl:px-[240px]">
-          {[...row2, ...row2].map((_, i) => (
-            <PortfolioThumb key={`r2-${i}`} />
+          {[...row2, ...row2].map((item, i) => (
+            <PortfolioThumb
+              key={`r2-${i}`}
+              slug={item.slug}
+              title={item.title}
+              thumbnail={item.thumbnail}
+            />
           ))}
         </div>
       </div>
