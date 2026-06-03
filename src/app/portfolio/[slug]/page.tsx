@@ -97,43 +97,42 @@ export default async function PortfolioDetailPage({ params }: Props) {
         <section className="bg-card py-[40px] md:py-[60px]">
           <div className="section-wrap flex flex-col gap-[10px] md:gap-[12px]">
 
-            {/* Hero image — cover.png */}
-            <div className="relative w-full overflow-hidden rounded-[12px] md:rounded-[16px] aspect-[3/2]">
-              {item.images[0]?.src ? (
-                <Image
-                  src={item.images[0].src}
-                  alt={item.images[0].alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) calc(100vw - 48px), calc(100vw - 480px)"
-                  priority
-                />
-              ) : (
+            {/* Hero image — cover.png, 원본 비율 유지 */}
+            {item.images[0]?.src ? (
+              <Image
+                src={item.images[0].src}
+                alt={item.images[0].alt}
+                width={0}
+                height={0}
+                sizes="(max-width: 768px) calc(100vw - 48px), calc(100vw - 480px)"
+                className="w-full h-auto block rounded-[12px] md:rounded-[16px]"
+                priority
+              />
+            ) : (
+              <div className="overflow-hidden rounded-[12px] md:rounded-[16px]">
                 <PlaceholderImage aspectRatio="aspect-[3/2]" />
-              )}
-            </div>
+              </div>
+            )}
 
-            {/* Additional images — 1.png, 2.png, ... */}
+            {/* Additional images — 1.png, 2.png, ... 1열, 원본 비율 */}
             {item.images.length > 1 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px] md:gap-[12px]">
+              <div className="flex flex-col gap-[10px] md:gap-[12px]">
                 {item.images.slice(1).map((img, i) =>
-                  img.wide ? (
-                    <div key={i} className="relative md:col-span-2 overflow-hidden rounded-[12px] md:rounded-[16px] aspect-[16/9]">
-                      {img.src ? (
-                        <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="(max-width: 768px) calc(100vw - 48px), calc(100vw - 480px)" />
-                      ) : (
-                        <PlaceholderImage aspectRatio="aspect-[16/9]" />
-                      )}
-                    </div>
+                  img.src ? (
+                    <Image
+                      key={i}
+                      src={img.src}
+                      alt={img.alt}
+                      width={0}
+                      height={0}
+                      sizes="(max-width: 768px) calc(100vw - 48px), calc(100vw - 480px)"
+                      className="w-full h-auto block rounded-[12px] md:rounded-[16px]"
+                    />
                   ) : (
-                    <div key={i} className="relative overflow-hidden rounded-[12px] md:rounded-[16px] aspect-[3/2]">
-                      {img.src ? (
-                        <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="(max-width: 768px) calc(100vw - 48px), calc((100vw - 480px) / 2)" />
-                      ) : (
-                        <PlaceholderImage aspectRatio="aspect-[3/2]" />
-                      )}
+                    <div key={i} className="overflow-hidden rounded-[12px] md:rounded-[16px]">
+                      <PlaceholderImage aspectRatio="aspect-[3/2]" />
                     </div>
-                  ),
+                  )
                 )}
               </div>
             )}
