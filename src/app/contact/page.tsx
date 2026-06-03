@@ -57,8 +57,10 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSending(true);
+    // Clear previous state immediately before new request
     setSendError(null);
+    setSubmitted(false);
+    setSending(true);
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
@@ -66,6 +68,8 @@ export default function ContactPage() {
         body: JSON.stringify({ projectTypes: selectedTypes, budget, timeline, content, name, company, email, phone }),
       });
       const data = await res.json().catch(() => ({}));
+      console.log('[contact page] response status', res.status);
+      console.log('[contact page] response body', data);
       if (!res.ok) {
         const detail = data?.debug ? JSON.stringify(data.debug) : `HTTP ${res.status}`;
         throw new Error(detail);
