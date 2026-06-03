@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev';
 
     const { error } = await resend.emails.send({
-      from: `Logodot 문의 <${from}>`,
+      from: `Logodot Contact <${from}>`,
       to: [process.env.RESEND_TO_EMAIL ?? 'design@logodot.kr'],
       replyTo: email,
       subject: `[Logodot 문의] ${company || name}`,
