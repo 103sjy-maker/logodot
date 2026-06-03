@@ -39,7 +39,7 @@ export default async function InsightDetailPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main className="flex-1 pt-14 md:pt-16">
+      <main className="flex-1 pt-[100px]">
         <article className="max-w-[800px] mx-auto px-5 md:px-10 py-12 md:py-16">
           {/* Article header */}
           <div className="mb-8">
