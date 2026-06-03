@@ -57,17 +57,43 @@ export async function POST(req: Request) {
 
   console.log('[contact] sending — subject:', subject, '| to:', to, '| from:', from, '| replyTo:', replyTo);
 
-  // 5. Send
+  // 5. Build payload and scan for non-ASCII in header fields
+  const emailPayload = {
+    from:    `Logodot <${from}>`,
+    to:      [to],
+    ...(replyTo ? { replyTo } : {}),
+    subject,
+    html: buildHtml({ projectTypes, budget, timeline, content, name, company, email, phone }),
+  };
+
+  // Log full payload (html truncated for readability)
+  console.log('[contact] payload:', JSON.stringify({ ...emailPayload, html: emailPayload.html.slice(0, 80) + '...' }, null, 2));
+
+  // Scan every string field for non-ASCII characters and log exact position + char code
+  const scanFields = ['from', 'subject', 'replyTo', ...emailPayload.to] as const;
+  for (const key of ['from', 'subject', 'replyTo'] as const) {
+    const val = (emailPayload as Record<string, unknown>)[key];
+    if (typeof val === 'string') {
+      for (let i = 0; i < val.length; i++) {
+        if (val.charCodeAt(i) > 127) {
+          console.error(`[contact] NON-ASCII in "${key}" idx=${i} char="${val[i]}" code=${val.charCodeAt(i)}`);
+        }
+      }
+    }
+  }
+  for (let i = 0; i < emailPayload.to.length; i++) {
+    const val = emailPayload.to[i];
+    for (let j = 0; j < val.length; j++) {
+      if (val.charCodeAt(j) > 127) {
+        console.error(`[contact] NON-ASCII in "to[${i}]" idx=${j} char="${val[j]}" code=${val.charCodeAt(j)}`);
+      }
+    }
+  }
+
   let sendResult;
   try {
     const resend = new Resend(apiKey);
-    sendResult = await resend.emails.send({
-      from:    `Logodot <${from}>`,
-      to:      [to],
-      ...(replyTo ? { replyTo } : {}),
-      subject,
-      html: buildHtml({ projectTypes, budget, timeline, content, name, company, email, phone }),
-    });
+    sendResult = await resend.emails.send(emailPayload);
   } catch (sendErr) {
     const msg = sendErr instanceof Error ? sendErr.message : String(sendErr);
     console.error('[contact] resend.send() threw:', msg, sendErr);
