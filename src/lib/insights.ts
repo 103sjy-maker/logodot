@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { remark } from 'remark';
-import remarkHtml from 'remark-html';
+import { marked } from 'marked';
 
 export interface InsightMeta {
   slug: string;
@@ -79,10 +78,7 @@ export async function getInsightBySlug(slug: string): Promise<InsightFull | null
   const source = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(source);
 
-  const processed = await remark()
-    .use(remarkHtml, { sanitize: false })
-    .process(content);
-  const contentHtml = processed.toString();
+  const contentHtml = await marked(content, { breaks: false });
 
   const all = getAllInsights();
   const current = all.find((a) => a.slug === slug);
