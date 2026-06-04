@@ -23,6 +23,13 @@ export interface InsightFull extends InsightMeta {
 export { insightCategories } from './insights-config';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content/insights');
+const PUBLIC_DIR  = path.join(process.cwd(), 'public');
+
+/** public/ 에 실제 파일이 있을 때만 경로 반환, 없으면 null */
+function resolveThumb(value: unknown): string | null {
+  if (!value || typeof value !== 'string') return null;
+  return fs.existsSync(path.join(PUBLIC_DIR, value)) ? value : null;
+}
 
 function toDisplay(date: string): string {
   return date.replace(/-/g, '.');
@@ -49,7 +56,7 @@ export function getAllInsights(): InsightMeta[] {
       date,
       dateDisplay: toDisplay(date),
       excerpt: (data.excerpt as string) ?? '',
-      thumbnail: (data.thumbnail as string) || null,
+      thumbnail: resolveThumb(data.thumbnail),
     };
   });
 
@@ -92,7 +99,7 @@ export async function getInsightBySlug(slug: string): Promise<InsightFull | null
     date,
     dateDisplay: toDisplay(date),
     excerpt: (data.excerpt as string) ?? '',
-    thumbnail: (data.thumbnail as string) || null,
+    thumbnail: resolveThumb(data.thumbnail),
     contentHtml,
     prevSlug: current?.prevSlug,
     nextSlug: current?.nextSlug,
