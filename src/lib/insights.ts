@@ -36,7 +36,11 @@ export function getAllInsights(): InsightMeta[] {
     const slug = filename.replace(/\.md$/, '');
     const source = fs.readFileSync(path.join(CONTENT_DIR, filename), 'utf8');
     const { data } = matter(source);
-    const date: string = data.date ? String(data.date) : '2024-01-01';
+    // gray-matter가 YAML date를 JS Date 객체로 자동 파싱 → ISO 문자열로 변환
+    const raw = data.date;
+    const date: string = raw instanceof Date
+      ? raw.toISOString().split('T')[0]
+      : raw ? String(raw) : '2024-01-01';
 
     return {
       slug,
@@ -76,7 +80,10 @@ export async function getInsightBySlug(slug: string): Promise<InsightFull | null
   const all = getAllInsights();
   const current = all.find((a) => a.slug === slug);
 
-  const date: string = data.date ? String(data.date) : '2024-01-01';
+  const rawDate = data.date;
+  const date: string = rawDate instanceof Date
+    ? rawDate.toISOString().split('T')[0]
+    : rawDate ? String(rawDate) : '2024-01-01';
 
   return {
     slug,

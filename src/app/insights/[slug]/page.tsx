@@ -42,10 +42,9 @@ export default async function InsightDetailPage({ params }: Props) {
           {/* 헤더 */}
           <div className="mb-8">
             <p className="text-sm text-brand font-medium mb-3">{article.category}</p>
-            <h1 className="text-2xl md:text-4xl font-bold text-foreground leading-tight mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold text-foreground leading-tight">
               {article.title}
             </h1>
-            <p className="text-sm text-muted">{article.dateDisplay}</p>
           </div>
 
           {/* 커버 이미지 */}
