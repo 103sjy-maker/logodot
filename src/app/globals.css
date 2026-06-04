@@ -94,3 +94,23 @@ body {
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+/* ─── Insight markdown prose ─── */
+.insight-prose { color: var(--foreground); font-size: 0.9375rem; line-height: 1.8; }
+.insight-prose p { margin-bottom: 1.25rem; }
+.insight-prose h2 { font-size: 1.25rem; font-weight: 700; margin: 2rem 0 0.75rem; }
+.insight-prose h3 { font-size: 1.0625rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+.insight-prose h4 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.5rem; }
+.insight-prose strong { font-weight: 700; }
+.insight-prose em { font-style: italic; }
+.insight-prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.insight-prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.insight-prose li { margin-bottom: 0.375rem; }
+.insight-prose blockquote { border-left: 3px solid var(--brand); padding-left: 1rem; margin: 1.5rem 0; color: var(--muted); font-style: italic; }
+.insight-prose hr { border: none; border-top: 1px solid var(--border-col); margin: 2.5rem 0; }
+.insight-prose a { color: var(--brand); text-decoration: underline; }
+.insight-prose a:hover { opacity: 0.8; }
+.insight-prose img { width: 100%; height: auto; border-radius: 10px; margin: 1.5rem 0; display: block; }
+.insight-prose code { background: var(--card); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.875em; font-family: monospace; }
+.insight-prose pre { background: var(--card); padding: 1rem 1.25rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1.25rem; }
+.insight-prose pre code { background: none; padding: 0; }
