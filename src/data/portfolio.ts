@@ -445,8 +445,8 @@ export const portfolioItems: PortfolioItem[] = [
   {
     slug: 'market',
     title: "양평청개구리마켓 BI 디자인",
-    category: "기업·스타트업",
-    categorySlug: "기업·스타트업",
+    category: "기타",
+    categorySlug: "기타",
     client: "(사)한국관광개발연구원",
     service: "로고·브랜드 디자인",
     date: "2024",
