@@ -22,12 +22,10 @@ export interface InsightFull extends InsightMeta {
 export { insightCategories } from './insights-config';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content/insights');
-const PUBLIC_DIR  = path.join(process.cwd(), 'public');
 
-/** public/ 에 실제 파일이 있을 때만 경로 반환, 없으면 null */
 function resolveThumb(value: unknown): string | null {
-  if (!value || typeof value !== 'string') return null;
-  return fs.existsSync(path.join(PUBLIC_DIR, value)) ? value : null;
+  if (!value || typeof value !== 'string' || !value.trim()) return null;
+  return value;
 }
 
 function toDisplay(date: string): string {
