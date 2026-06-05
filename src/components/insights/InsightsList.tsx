@@ -58,7 +58,10 @@ export function InsightsList({ articles }: { articles: InsightMeta[] }) {
                 <PlaceholderImage aspectRatio="aspect-[4/3]" />
               )}
             </div>
-            <div className="flex flex-col gap-[5px] md:gap-[7px]">
+            <div className="flex flex-col gap-[4px] md:gap-[6px]">
+              <p className="text-[11px] leading-[1.4] tracking-[-0.2px] md:text-[13px] md:leading-[1.4] md:tracking-[-0.26px] font-medium text-brand">
+                {article.category}
+              </p>
               <p className="text-[13px] leading-[19px] tracking-[-0.26px] md:text-[20px] md:leading-[28px] md:tracking-[-0.4px] font-semibold text-foreground group-hover:text-brand transition-colors line-clamp-2">
                 {article.title}
               </p>
