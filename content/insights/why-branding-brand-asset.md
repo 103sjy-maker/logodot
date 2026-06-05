@@ -2,7 +2,7 @@
 title: 로고를 바꾸고 싶다면, 먼저 이것부터 생각해보세요
 category: 브랜딩 기초
 date: 2026-06-04
-excerpt: 로고는 단순한 디자인이 아닌 브랜드의 얼굴입니다.
+excerpt: 로고는 브랜드의 얼굴입니다.
 thumbnail: /insights/why-branding-brand-asset/cover.jpg
 ---
 

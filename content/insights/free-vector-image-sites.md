@@ -2,7 +2,7 @@
 title: 디자이너가 알아두면 좋은 무료 벡터 이미지 사이트 10곳
 category: 자료실
 date: 2025-12-24
-excerpt: 작업 시간을 줄여주는 실무용 디자인 리소스 추천
+excerpt: 작업 시간을 줄여주는 리소스
 thumbnail: /insights/free-vector-image-sites/cover.jpg
 ---
 
