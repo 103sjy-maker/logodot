@@ -1,7 +1,7 @@
 ---
 title: 디자이너들만 아는 상업적 이용 가능 무료 영문 폰트
 category: 자료실
-date: 2025-12-24
+date: 2025-12-31
 excerpt: 무료 영문 고딕 폰트 추천 10종
 thumbnail: /insights/free-english-fonts/cover.jpg
 ---

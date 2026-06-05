@@ -1,7 +1,7 @@
 ---
 title: 패션 브랜드는 어떻게 만들어질까? 브랜딩 프로젝트 제작기
 category: 고객 이야기
-date: 2025-12-27
+date: 2026-03-27
 excerpt: 실제 프로젝트로 보는 브랜드 디자인 과정.
 thumbnail: /insights/fashion-branding-project-process/cover.png
 ---

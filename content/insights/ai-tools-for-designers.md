@@ -1,7 +1,7 @@
 ---
 title: 디자이너가 실제로 사용하는 AI 도구 7가지
 category: 디자인 실무
-date: 2026-3-12
+date: 2026-5-20
 excerpt: 반복 작업은 줄이고, 창의적인 일에 더 집중해 보세요.
 thumbnail: /insights/ai-tools-for-designers/cover.jpg
 ---
