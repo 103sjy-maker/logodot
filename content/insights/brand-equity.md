@@ -2,7 +2,7 @@
 title: 브랜드 자산이 중요한 이유, 브랜딩을 해야 하는 진짜 이유
 category: 브랜딩 기초
 date: 2026-06-05
-excerpt: 브랜드는 로고가 아니라 고객의 머릿속에 쌓이는 신뢰와 경험입니다.
+excerpt: 고객은 제품보다 브랜드를 기억합니다.
 thumbnail: /insights/brand-equity/cover.jpg
 ---
 
