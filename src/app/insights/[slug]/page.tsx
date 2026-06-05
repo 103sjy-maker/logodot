@@ -49,7 +49,7 @@ export default async function InsightDetailPage({ params }: Props) {
 
           {/* 커버 이미지 */}
           {article.thumbnail && (
-            <div className="relative w-full aspect-[16/9] overflow-hidden rounded-[12px] mb-10 bg-card">
+            <div className="relative w-full aspect-[15/10] overflow-hidden rounded-[12px] mb-10 bg-card">
               <Image
                 src={article.thumbnail}
                 alt={article.title}

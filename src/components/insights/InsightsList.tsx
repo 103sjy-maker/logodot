@@ -45,7 +45,7 @@ export function InsightsList({ articles }: { articles: InsightMeta[] }) {
           >
             <div className="overflow-hidden rounded-[10px] md:rounded-[16px]">
               {article.thumbnail ? (
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-[15/10]">
                   <Image
                     src={article.thumbnail}
                     alt={article.title}
