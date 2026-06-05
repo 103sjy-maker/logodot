@@ -106,6 +106,7 @@ export function PhilosophySection() {
                     alt=""
                     aria-hidden="true"
                     className="flex-shrink-0 mt-1"
+                    style={{ width: card.icon.width, height: card.icon.height }}
                     draggable={false}
                   />
                 </div>
