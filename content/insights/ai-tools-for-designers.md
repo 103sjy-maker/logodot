@@ -2,7 +2,7 @@
 title: 디자이너가 실제로 사용하는 AI 도구 7가지
 category: 디자인 실무
 date: 2026-3-12
-excerpt: 기획, 이미지, 제안서, 웹사이트까지 디자인 업무에 도움 되는 AI 도구 모음.
+excerpt: 반복 작업은 줄이고, 창의적인 일에 더 집중해 보세요.
 thumbnail: /insights/ai-tools-for-designers/cover.jpg
 ---
 
