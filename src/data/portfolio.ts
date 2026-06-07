@@ -337,7 +337,6 @@ export const portfolioItems: PortfolioItem[] = [
       { src: '/portfolio/blanc/3.png',     alt: 'BLANC BI 디자인 - 3' },
       { src: '/portfolio/blanc/4.png',     alt: 'BLANC BI 디자인 - 4' },
       { src: '/portfolio/blanc/5.png',     alt: 'BLANC BI 디자인 - 5' },
-      { src: '/portfolio/blanc/7.jpg',     alt: 'BLANC BI 디자인 - 7' },
       { src: '/portfolio/blanc/8.jpg',     alt: 'BLANC BI 디자인 - 8' },
       { src: '/portfolio/blanc/9.png',     alt: 'BLANC BI 디자인 - 9' },
       { src: '/portfolio/blanc/10.webp',    alt: 'BLANC BI 디자인 - 10' },
