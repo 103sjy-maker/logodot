@@ -32,7 +32,7 @@ export default function PortfolioPage() {
 
           {/* Portfolio grid — 1 col mobile, 3 col desktop */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-[24px] gap-y-[36px] md:gap-y-[60px]">
-            {portfolioItems.map((item) => (
+            {portfolioItems.map((item, index) => (
               <Link key={item.slug} href={`/portfolio/${item.slug}`} className="group flex flex-col gap-[14px] md:gap-[24px]">
                 <div className="relative overflow-hidden rounded-[14px] md:rounded-[20px] aspect-[456/304]">
                   {item.thumbnail ? (
@@ -41,12 +41,13 @@ export default function PortfolioPage() {
                       alt={item.title}
                       fill
                       className="object-cover"
-                      sizes="(max-width: 768px) calc(100vw - 48px), calc((100vw - 480px) / 3)"
+                      sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) calc((100vw - 168px) / 3), (max-width: 1439px) calc((100vw - 288px) / 3), 304px"
+                      priority={index < 3}
                     />
                   ) : (
                     <PlaceholderImage aspectRatio="aspect-[456/304]" />
                   )}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                     <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow">
                       <span className="text-foreground text-[20px] leading-none">+</span>
                     </div>
