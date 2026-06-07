@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  other: {
+    'p:domain_verify': '0b5008c9dbbcdaf2057870f299bb5741',
+  },
 };
 
 export default function RootLayout({
