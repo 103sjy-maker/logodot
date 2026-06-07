@@ -40,7 +40,7 @@ export default function PortfolioPage() {
                       src={item.thumbnail}
                       alt={item.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.06]"
                       sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) calc((100vw - 168px) / 3), (max-width: 1439px) calc((100vw - 288px) / 3), 304px"
                       priority={index < 3}
                     />
