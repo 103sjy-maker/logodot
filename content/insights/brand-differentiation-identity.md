@@ -2,7 +2,7 @@
 title: 차별화는 특별함이 아니라 자기다움에서 시작됩니다
 category: 브랜딩 기초
 date: 2025-11-11
-excerpt: 기억되는 브랜드는 다른 척하지 않습니다.
+excerpt: 브랜드의 차별성은 자기다움에서 시작됩니다.
 thumbnail: /insights/brand-differentiation-identity/cover.png
 ---
 
