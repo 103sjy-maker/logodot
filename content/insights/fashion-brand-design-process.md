@@ -151,7 +151,7 @@ HEUREUX는 화려하거나 과장된 럭셔리 브랜드보다는 편안함 속�
 HEUREUX 프로젝트에서는 브랜드가 추구하는 편안하고 세련된 이미지를 전달하기 위해 과한 장식보다 절제된 표현을 선택했습니다.
 
 ![실제 제품 적용 이미지](/insights/fashion-branding-project-process/8.png)
-(/insights/fashion-branding-project-process/9.png)
+![실제 제품 적용 이미지](/insights/fashion-branding-project-process/9.png)
 
 ---
 
