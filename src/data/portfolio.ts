@@ -221,8 +221,8 @@ export const portfolioItems: PortfolioItem[] = [
     service: "로고 디자인",
     date: "2022",
     thumbnail: '/portfolio/mosphia/cover.jpg',
-    descriptionKo: "MOSPHIA는 첨단 기술과 혁신적인 솔루션을 제공하는 미래지향적 테크 기업입니다.\n브랜드명은 기술(Technology)과 지혜(Wisdom), 그리고 무한한 가능성(Potential)의 의미를 담아 탄생하였으며, 빠르게 변화하는 디지털 환경 속에서 새로운 가치를 창출하는 기업 철학을 반영합니다.\n로고타입은 기하학적 구조와 부드러운 곡선을 결합하여 정밀성과 혁신성을 표현하였으며, 브랜드 컬러인 MOSPHIA BLUE는 기술 혁신, 신뢰, 전문성을 상징합니다.",
-    descriptionEn: "The brand identity was designed to represent precision, innovation, and reliability through a geometric yet streamlined logotype. Smooth curves and balanced proportions create a modern visual language that reflects advanced technology and forward-thinking values.\nThe signature MOSPHIA Blue color symbolizes trust, intelligence, and technological excellence, helping establish a strong and recognizable presence across digital and physical platforms.",
+    descriptionKo: "MOSPHIA는 대기 중 수분을 응축하여 깨끗한 물을 생산하는 대기수 생성 기술 브랜드입니다.\n브랜드명은 Moisture(수분)와 Atmosphere(대기)의 의미를 결합하여 탄생하였으며, 자연의 물 순환 원리에서 영감을 받았습니다. 바다와 강에서 증발한 수분이 대기 중에 머물다가 다시 비가 되어 내리는 자연의 순환처럼, MOSPHIA는 공기 속 수증기를 새로운 수자원으로 전환하는 기술을 제공합니다.\n로고는 물방울과 공기의 흐름, 그리고 순환의 개념을 시각적으로 표현하는 데 중점을 두었습니다. 부드러운 곡선과 균형 잡힌 구조를 통해 친환경 기술의 신뢰성과 지속가능성을 담아냈으며, 미래지향적인 브랜드 이미지를 구축하였습니다.\n브랜드 컬러인 MOSPHIA Blue는 깨끗한 물, 기술 혁신, 신뢰를 상징합니다. 이를 통해 환경 기술 기업으로서의 전문성과 지속가능한 비전을 효과적으로 전달하고자 하였습니다.",
+    descriptionEn: "The brand identity was inspired by the natural water cycle and the process of transforming atmospheric moisture into a sustainable water resource.\nThe logotype combines fluid curves and balanced geometry to represent air, water, and circulation, while maintaining a clean and contemporary appearance. The visual identity reflects the brand's commitment to innovation, sustainability, and environmental responsibility.\nMOSPHIA Blue symbolizes purity, trust, and technological excellence, helping establish a distinctive and credible presence across various brand touchpoints.",
     images: [
       { src: '/portfolio/mosphia/cover.jpg', alt: 'MOSPHIA BI 디자인 - cover' },
       { src: '/portfolio/mosphia/1.jpg',     alt: 'MOSPHIA BI 디자인 - 1' },
