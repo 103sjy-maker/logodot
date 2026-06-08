@@ -72,8 +72,6 @@ thumbnail: /insights/logo-is-not-brand/cover.jpg
 
 고객이 기억하는 것은 로고가 아니라 브랜드 경험입니다.
 
-![배달의민족 브랜드 카피](/insights/logo-is-not-brand/3.jpg)
-
 ---
 
 ## 좋은 브랜드는 일관성을 가지고 있습니다
