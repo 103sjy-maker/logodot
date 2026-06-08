@@ -16,11 +16,11 @@ thumbnail: /insights/logo-is-not-brand/cover.webp
 
 로고는 브랜드를 표현하는 요소 중 하나일 뿐, 브랜드 그 자체는 아닙니다.
 
-![브랜드 무드보드](/insights/logo-is-not-brand/1.webp)
-
 ---
 
 ## 로고는 브랜드의 시작점일 뿐입니다
+
+![나이키 브랜드 캠페인](/insights/logo-is-not-brand/1.webp)
 
 로고는 사람의 얼굴과 비슷합니다.
 
@@ -40,11 +40,11 @@ thumbnail: /insights/logo-is-not-brand/cover.webp
 
 좋은 브랜드가 좋은 로고를 만든 것이지, 좋은 로고가 브랜드를 만든 것은 아닙니다.
 
-![나이키 브랜드 캠페인](/insights/logo-is-not-brand/2.webp)
-
 ---
 
 ## 고객은 로고보다 경험을 기억합니다
+
+![배달의 민족 카피라이팅](/insights/logo-is-not-brand/2.webp)
 
 우리가 어떤 브랜드를 좋아하게 되는 이유를 생각해 보면 답은 의외로 간단합니다.
 
