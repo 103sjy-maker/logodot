@@ -76,7 +76,8 @@ export async function getInsightBySlug(slug: string): Promise<InsightFull | null
   const source = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(source);
 
-  const contentHtml = await marked(content, { breaks: false });
+  const raw = await marked(content, { breaks: false });
+  const contentHtml = raw.replace(/<img /g, '<img loading="lazy" ');
 
   const all = getAllInsights();
   const current = all.find((a) => a.slug === slug);

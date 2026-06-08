@@ -3,7 +3,7 @@ title: 로고만 잘 만든다고 브랜드가 되지 않는 이유
 category: 브랜딩 기초
 date: 2026-06-08
 excerpt: 좋은 로고보다 좋은 브랜드가 먼저입니다.
-thumbnail: /insights/logo-is-not-brand/cover.jpg
+thumbnail: /insights/logo-is-not-brand/cover.webp
 ---
 
 # 로고만 잘 만든다고 브랜드가 되지 않는 이유
@@ -16,7 +16,7 @@ thumbnail: /insights/logo-is-not-brand/cover.jpg
 
 로고는 브랜드를 표현하는 요소 중 하나일 뿐, 브랜드 그 자체는 아닙니다.
 
-![브랜드 무드보드](/insights/logo-is-not-brand/1.jpg)
+![브랜드 무드보드](/insights/logo-is-not-brand/1.webp)
 
 ---
 
@@ -40,7 +40,7 @@ thumbnail: /insights/logo-is-not-brand/cover.jpg
 
 좋은 브랜드가 좋은 로고를 만든 것이지, 좋은 로고가 브랜드를 만든 것은 아닙니다.
 
-![나이키 브랜드 캠페인](/insights/logo-is-not-brand/2.jpg)
+![나이키 브랜드 캠페인](/insights/logo-is-not-brand/2.webp)
 
 ---
 
