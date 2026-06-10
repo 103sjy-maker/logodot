@@ -3,7 +3,7 @@ title: 개발 몰라도 AI로 홈페이지 만드는 방법
 category: 디자인 실무
 date: 2026-06-10
 excerpt: 개발 경험이 없는 디자이너가 AI를 활용해 홈페이지를 만든 과정
-thumbnail: /insights/ai-homepage/cover.png
+thumbnail: /insights/ai-homepage/cover.webp
 ---
 
 
@@ -45,7 +45,7 @@ AI 코딩 도구인 Claude의 도움을 받아 디자인부터 수정, 배포까
 
 그때부터 AI를 활용해 직접 홈페이지를 만들어보기 시작했습니다.
 
-![Claude Code 작업 화면](/insights/ai-homepage/1.png)
+![Claude Code 작업 화면](/insights/ai-homepage/1.webp)
 
 Claude에게 원하는 내용을 채팅하듯 설명하면 실제 코드를 수정하고 결과를 반영하는 방식입니다.
 
@@ -132,7 +132,7 @@ Claude 설치 방법부터 사용 방법, 오류 해결, 배포 과정까지 모
 
 결국 홈페이지의 완성도는 거창한 기능보다 작은 디테일을 얼마나 반복해서 다듬느냐에 달려 있었습니다.
 
-![로고닷 홈페이지](/insights/ai-homepage/2.png)
+![로고닷 홈페이지](/insights/ai-homepage/2.webp)
 
 ---
 
