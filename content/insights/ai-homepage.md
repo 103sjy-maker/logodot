@@ -2,7 +2,7 @@
 title: 개발 몰라도 AI로 홈페이지 만드는 방법
 category: 디자인 실무
 date: 2026-06-10
-excerpt: 개발 경험이 없는 디자이너가 AI를 활용해 홈페이지를 만든 과정
+excerpt: 이 홈페이지도 그렇게 탄생했습니다.
 thumbnail: /insights/ai-homepage/cover.webp
 ---
 
