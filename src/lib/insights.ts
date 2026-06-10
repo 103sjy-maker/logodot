@@ -11,6 +11,7 @@ export interface InsightMeta {
   dateDisplay: string; // 표시용: 2026.01.10
   excerpt: string;
   thumbnail: string | null;
+  featured?: boolean;
   prevSlug?: string;
   nextSlug?: string;
 }
@@ -54,11 +55,16 @@ export function getAllInsights(): InsightMeta[] {
       dateDisplay: toDisplay(date),
       excerpt: (data.excerpt as string) ?? '',
       thumbnail: resolveThumb(data.thumbnail),
+      featured: (data.featured as boolean) ?? false,
     };
   });
 
-  // 날짜 내림차순 정렬
-  articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  // featured 우선, 이후 날짜 내림차순
+  articles.sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 
   // prev / next 자동 연결
   return articles.map((article, idx) => ({
