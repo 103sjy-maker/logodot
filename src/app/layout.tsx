@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     siteName: 'Logodot',
-    title: 'Logodot | 로고부터 브랜드아이덴티티까지',
-    description: '로고닷은 로고부터 브랜드아이덴티티까지 전략적 디자인으로 브랜드의 본질을 담아냅니다.',
+    title: '로고닷 | One dot. Infinite identity.',
+    description: '브랜드는 로고의 한 점에서 시작됩니다.',
     images: [
       {
         url: '/og-image.png',
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Logodot | 로고부터 브랜드아이덴티티까지',
-    description: '로고닷은 로고부터 브랜드아이덴티티까지 전략적 디자인으로 브랜드의 본질을 담아냅니다.',
+    title: '로고닷 | One dot. Infinite identity.',
+    description: '브랜드는 로고의 한 점에서 시작됩니다.',
     images: ['/og-image.png'],
   },
   robots: {
