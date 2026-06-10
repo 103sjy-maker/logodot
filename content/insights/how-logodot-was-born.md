@@ -4,7 +4,7 @@ category: 브랜딩 기초
 date: 2026-06-10
 featured: true
 excerpt: 로고닷을 만들게 된 이야기
-thumbnail: /insights/how-logodot-was-born/cover.png
+thumbnail: /insights/how-logodot-was-born/cover.webp
 ---
 
 
