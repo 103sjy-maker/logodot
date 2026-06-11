@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: '브랜드는 로고의 한 점에서 시작됩니다.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image-v2.png',
         width: 1200,
         height: 630,
         alt: 'Logodot — One dot. Infinite identity.',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '로고닷 | One dot. Infinite identity.',
     description: '브랜드는 로고의 한 점에서 시작됩니다.',
-    images: ['/og-image.png'],
+    images: ['/og-image-v2.png'],
   },
   robots: {
     index: true,
