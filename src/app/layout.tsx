@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     default: '로고닷 | One dot. Infinite identity.',
     template: '%s | Logodot',
   },
-  description: '브랜드는 로고의 한 점에서 시작됩니다.',
+  description: '브랜드는 로고의 한 점에서 시작됩니다. 로고닷은 로고 디자인부터 브랜드 아이덴티티까지 설계하는 브랜딩 스튜디오입니다.',
   keywords: ['로고 디자인', '브랜드 디자인', '브랜드 아이덴티티', 'BI 디자인', '로고닷', 'Logodot'],
   authors: [{ name: 'Logodot' }],
   openGraph: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     siteName: 'Logodot',
     title: '로고닷 | One dot. Infinite identity.',
-    description: '브랜드는 로고의 한 점에서 시작됩니다.',
+    description: '브랜드는 로고의 한 점에서 시작됩니다. 로고닷은 로고 디자인부터 브랜드 아이덴티티까지 설계하는 브랜딩 스튜디오입니다.',
     images: [
       {
         url: '/og-image-v2.png',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: '로고닷 | One dot. Infinite identity.',
-    description: '브랜드는 로고의 한 점에서 시작됩니다.',
+    description: '브랜드는 로고의 한 점에서 시작됩니다. 로고닷은 로고 디자인부터 브랜드 아이덴티티까지 설계하는 브랜딩 스튜디오입니다.',
     images: ['/og-image-v2.png'],
   },
   robots: {
