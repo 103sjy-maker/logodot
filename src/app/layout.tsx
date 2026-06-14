@@ -12,12 +12,12 @@ const googleSansFlex = Google_Sans_Flex({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://logodot.kr'),
   title: {
-    default: 'Logodot | 로고부터 브랜드아이덴티티까지',
+    default: '로고닷 | One dot. Infinite identity.',
     template: '%s | Logodot',
   },
-  description:
-    '로고닷은 로고부터 브랜드아이덴티티까지 전략적 디자인으로 브랜드의 본질을 담아냅니다. 대전 기반 브랜드 디자인 전문 스튜디오.',
+  description: '브랜드는 로고의 한 점에서 시작됩니다.',
   keywords: ['로고 디자인', '브랜드 디자인', '브랜드 아이덴티티', 'BI 디자인', '로고닷', 'Logodot'],
   authors: [{ name: 'Logodot' }],
   openGraph: {
