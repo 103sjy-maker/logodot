@@ -3,7 +3,7 @@ title: 로고 디자인 비용이 30만원부터 300만원까지 차이 나는 �
 category: 브랜딩 기초
 date: 2026-06-01
 excerpt: 같은 로고라도 가격이 다른 이유는 결과물이 아닌 과정에 있습니다.
-thumbnail: /insights/logo-design-cost-difference/cover.jpg
+thumbnail: /insights/logo-design-cost-difference/cover.webp
 ---
 
 
